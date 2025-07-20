@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+             $table->string('title');
+            $table->longText('description')->nullable();
+            $table->string('image')->nullable(); // Optional image path
+
+            // Enum status: To Do, In Progress, Done
+            $table->enum('status', ['to_do', 'in_progress', 'done'])->default('to_do');
+
+            // Dates
+            $table->date('assigned_date')->nullable();
+            $table->date('completed_date')->nullable();
+
+            // Foreign keys (created_by = who created, assigned_to = who will do it)
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('assigned_to')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });
     }
