@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-             $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('title');
             $table->longText('description')->nullable();
             $table->string('image')->nullable(); // Optional image path
 
             // Enum status: To Do, In Progress, Done
-            $table->enum('status', ['to_do', 'in_progress', 'done'])->default('to_do');
+            $table->enum('status', ['to_do', 'in_progress', 'completed'])->default('to_do');
+            $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
 
             // Dates
             $table->date('assigned_date')->nullable();

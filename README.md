@@ -13,6 +13,7 @@ A simple, Trello-like Task Manager built with Laravel. Users can register, log i
 
 ## 🧰 Packages Used
 
+-   **[Eloquent-Sluggable](https://github.com/cviebrock/eloquent-sluggable)** – Use for unique slug generate
 -   **[Laravel Breeze](https://github.com/laravel/breeze)** – Simple authentication scaffolding for Laravel
 -   **[Laracasts Windmill Theme](https://github.com/laracasts/windmill-dashboard)** – Tailwind CSS-based admin dashboard UI
 -   **[Spatie Laravel Permission](https://github.com/spatie/laravel-permission)** – Role and permission management for Laravel applications
