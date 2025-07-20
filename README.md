@@ -1,4 +1,4 @@
-# 📝 Task Manager (Trello Clone)
+# 📝 Task Manager
 
 A simple, Trello-like Task Manager built with Laravel. Users can register, log in with roles, and create tasks. All users can add tasks, but only admins can assign them to others. Tasks can be dragged, sorted by priority, and managed easily through a clean UI.
 
