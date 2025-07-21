@@ -64,7 +64,7 @@
                             <th class="px-5 py-3">Completed Date</th>
                             <th class="px-5 py-3">Created By</th>
                             <th class="px-5 py-3">Assigned To</th>
-                            <th class="px-8 py-3 text-center">Action</th>
+                            <th class="px-12 py-3 text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white" id="sortable-task-list">

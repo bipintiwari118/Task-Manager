@@ -138,4 +138,10 @@ class TaskController extends Controller
          return redirect()->route('task.list')->with('success', 'Task Deleted successfully!');
     }
 
+
+    public function view($slug){
+         $task=Task::where('slug',$slug)->first();
+         return view('admin.task.view',compact('task'));
+    }
+
 }
