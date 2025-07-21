@@ -52,8 +52,21 @@ class TaskController extends Controller
         return redirect()->route('task.list')->with('success', 'Task created successfully!');
     }
 
-    public function list(){
-        $tasks = Task::with('creator', 'assigne')
+    public function list(Request $request){
+
+         $tasks = Task::query();
+            if ($request->filled('keyword')) {
+            $keyword = $request->keyword;
+            $tasks = $tasks->where(function($query) use ($keyword) {
+                $query->where('title', 'like', '%'.$keyword.'%')
+                    ->orWhere('status', 'like', '%'.$keyword.'%')
+                    ->orWhere('assigned_date', 'like', '%'.$keyword.'%')
+                    ->orWhere('completed_date', 'like', '%'.$keyword.'%');
+            });
+        }
+
+
+        $tasks = $tasks->with('creator', 'assigne')
                 ->orderByRaw("FIELD(priority, 'high', 'medium', 'low')")
                 ->orderBy('position')
                 ->paginate(10);
