@@ -72,7 +72,7 @@ class TaskController extends Controller
         $tasks = $tasks->with('creator', 'assigne')
                 ->orderByRaw("FIELD(priority, 'high', 'medium', 'low')")
                 ->orderBy('position')
-                ->paginate(3);
+                ->paginate(10);
         return view('admin.task.list',compact('tasks'));
     }
 
@@ -129,6 +129,13 @@ class TaskController extends Controller
         return redirect()->route('task.list')->with('success', 'Task Updated successfully!');
 
 
+    }
+
+
+    public function delete($slug){
+        $task=Task::where('slug',$slug)->first();
+        $task->delete();
+         return redirect()->route('task.list')->with('success', 'Task Deleted successfully!');
     }
 
 }
