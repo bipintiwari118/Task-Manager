@@ -55,15 +55,18 @@ class TaskController extends Controller
     public function list(Request $request){
 
          $tasks = Task::query();
-            if ($request->filled('keyword')) {
-            $keyword = $request->keyword;
-            $tasks = $tasks->where(function($query) use ($keyword) {
-                $query->where('title', 'like', '%'.$keyword.'%')
-                    ->orWhere('status', 'like', '%'.$keyword.'%')
-                    ->orWhere('assigned_date', 'like', '%'.$keyword.'%')
-                    ->orWhere('completed_date', 'like', '%'.$keyword.'%');
-            });
-        }
+                        if ($request->filled('title')) {
+                            $tasks->where('title', 'like', '%' . $request->title . '%');
+                        }
+
+                        if ($request->filled('date')) {
+                            $tasks->where('assigned_date', $request->date)
+                                 ->orWhere('completed_date',$request->date);
+                        }
+
+                        if ($request->filled('status')) {
+                            $tasks->where('status', $request->status);
+                        }
 
 
         $tasks = $tasks->with('creator', 'assigne')

@@ -22,18 +22,20 @@
             <form method="GET" action="{{ route('task.list') }}" class="mb-4">
                 <div class="flex items-center gap-4">
                     <label for="category" class="text-gray-700 font-semibold">Filter by Search:</label>
-                    <input type="text" name="keyword" id="search"
+                    <input type="text" name="title" id="search"
                         class="border w-[200px] border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Search here" value="{{ request('keyword') }}">
-                    <input type="date" name="keyword" id="search_date"
+                        placeholder="Search here" value="{{ request('title') }}">
+                    <input type="date" name="date" id="search_date"
                         class="border w-[200px] border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Search here" value="{{ request('keyword') }}">
-                    <select name="keyword" id="search"
+                        placeholder="Search here" value="{{ request('date') }}">
+                    <select name="status" id="search"
                         class="border w-[200px] border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="">Select Status</option>
-                        <option value="to_do">To Do</option>
-                        <option value="in_progress">In Progress</option>
-                        <option value="completed">Completed</option>
+                        <option value="to_do" {{ request('status') == 'to_do' ? 'selected' : '' }}>To Do</option>
+                        <option value="in_progress" {{ request('status') == 'in_progress' ? 'selected' : '' }}>In
+                            Progress</option>
+                        <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed
+                        </option>
                     </select>
                     <button type="submit"
                         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
