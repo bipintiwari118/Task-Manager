@@ -17,3 +17,12 @@ A simple, Trello-like Task Manager built with Laravel. Users can register, log i
 -   **[Laravel Breeze](https://github.com/laravel/breeze)** – Simple authentication scaffolding for Laravel
 -   **[Laracasts Windmill Theme](https://github.com/laracasts/windmill-dashboard)** – Tailwind CSS-based admin dashboard UI
 -   **[Spatie Laravel Permission](https://github.com/spatie/laravel-permission)** – Role and permission management for Laravel applications
+
+## 🛠️ Tech Stack
+
+-   **HTML** – Markup structure for the UI
+-   **CSS** – Base styling
+-   **Tailwind CSS** – Utility-first CSS framework
+-   **Laravel** – PHP framework for backend development
+-   **jQuery** – JavaScript library for DOM manipulation and event handling
+-   **Sortable.js** – JavaScript library enabling drag-and-drop sorting
