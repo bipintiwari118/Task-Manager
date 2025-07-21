@@ -77,15 +77,6 @@ class TaskController extends Controller
     }
 
 
-    public function reorder(Request $request)
-        {
-            foreach ($request->order as $item) {
-                Task::where('id', $item['id'])->update(['position' => $item['position']]);
-            }
-
-            return response()->json(['status' => 'success']);
-        }
-
 
     public function edit($slug){
         $task=Task::where('slug',$slug)->first();
@@ -143,5 +134,17 @@ class TaskController extends Controller
          $task=Task::where('slug',$slug)->first();
          return view('admin.task.view',compact('task'));
     }
+
+
+       public function reorder(Request $request)
+
+
+        {
+            $order = $request->input('order');
+                foreach ($order as $item) {
+                     Task::where('id', $item['id'])->update(['position' => $item['position']]);
+                    }
+            return response()->json(['status' => 'success']);
+        }
 
 }

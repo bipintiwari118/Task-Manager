@@ -104,19 +104,21 @@
             </div>
 
             <!-- Assigned To -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Assign To (User ID)</label>
-                <select name="assigned_to" class="w-full border border-gray-300 rounded-lg px-4 py-2">
-                    @foreach ($users as $user)
+            @hasrole('Admin')
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Assign To (User ID)</label>
+                    <select name="assigned_to" class="w-full border border-gray-300 rounded-lg px-4 py-2">
                         <option value="">Select User</option>
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
 
-                </select>
-                @error('assigned_to')
-                    <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
-                @enderror
-            </div>
+                    </select>
+                    @error('assigned_to')
+                        <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
+                    @enderror
+                </div>
+            @endrole
 
             <!-- Assigned Date -->
             <div>

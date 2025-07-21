@@ -64,7 +64,7 @@
                             <th class="px-5 py-3">Completed Date</th>
                             <th class="px-5 py-3">Created By</th>
                             <th class="px-5 py-3">Assigned To</th>
-                            <th class="px-12 py-3 text-center">Action</th>
+                            <th class="px-14 py-3 text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white" id="sortable-task-list">
@@ -168,42 +168,44 @@
                     $(this)[0].showPicker(); // Trigger the calendar when input is clicked
                 });
 
-            });
 
 
-
-            document.addEventListener('DOMContentLoaded', function() {
                 const el = document.getElementById('sortable-task-list');
-                const sortable = Sortable.create(el, {
-                    animation: 150,
-                    onEnd: function(evt) {
-                        const order = [];
-                        document.querySelectorAll('#sortable-task-list tr').forEach((row, index) => {
-                            order.push({
-                                id: row.getAttribute('data-id'),
-                                position: index + 1
+                if (el) {
+                    const sortable = Sortable.create(el, {
+                        animation: 150,
+                        onEnd: function(evt) {
+                            const order = [];
+                            $('#sortable-task-list tr').each(function(index) {
+                                order.push({
+                                    id: $(this).data('id'),
+                                    position: index + 1
+                                });
                             });
-                        });
 
-                        fetch('{{ route('task.reorder') }}', {
+                            $.ajax({
+                                url: '{{ route("task.reorder") }}',
                                 method: 'POST',
                                 headers: {
-                                    'Content-Type': 'application/json',
                                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                                 },
-                                body: JSON.stringify({
+                                contentType: 'application/json', // Tell server it's JSON
+                                data: JSON.stringify({
                                     order: order
-                                })
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log(data.message);
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
+                                }), // Convert object to JSON string
+                                processData: false, // Don't process data (it's JSON string)
+                                success: function(res) {
+                                    console.log('Order updated:', res);
+                                },
+                                error: function(err) {
+                                    console.error('Error updating order:', err.responseText);
+                                }
                             });
-                    }
-                });
+                        }
+                    });
+                } else {
+                    console.error('Element with id "sortable-task-list" not found');
+                }
             });
         </script>
     @endsection

@@ -45,11 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/task/delete/{slug}', [TaskController::class, 'delete'])->name('task.delete');
     Route::get('/task/view/{slug}', [TaskController::class, 'view'])->name('task.view');
 
-    Route::post('/tasks/reorder', [TaskController::class, 'reorder'])->name('task.reorder');
+    Route::post('/tasks/reorder', [TaskController::class, 'reorder'])->name('task.reorder')->middleware('role:Admin');
 
 
 
-
+Route::group(['middleware' => ['role:Admin']], function () {
     //route for permission
 Route::get('/permission/create',[PermissionController::class, 'create'])->name('permission.create');
 Route::post('/permission/create',[PermissionController::class, 'store'])->name('permission.store');
@@ -82,7 +82,7 @@ Route::post('/role/permission/{id}',[RoleController::class, 'giveRolePermission'
   Route::get('users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
   Route::get('users/show/{id}', [UserController::class, 'show'])->name('users.show');
 
-
+});
 
 });
 
