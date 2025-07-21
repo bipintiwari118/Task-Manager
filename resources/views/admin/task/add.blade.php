@@ -5,7 +5,7 @@
     <div class="w-1/2 mx-auto bg-white p-8 rounded-2xl shadow-md">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Create New Task</h2>
         @if (Session::has('success'))
-            <div class="text-green-500 text-[20px] mt-1  ml-[200px] p-[10px]" role="alert">
+            <div class="text-green-500 text-[20px] mt-1  ml-[50px] p-[10px]" role="alert">
                 {{ Session::get('success') }}
             </div>
         @endif
@@ -24,14 +24,20 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
                 <input type="text" name="title" value="{{ old('title') }}"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-blue-200" required>
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-blue-200">
+                @error('title')
+                    <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Description -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
                 <textarea name="description" rows="4"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-blue-200" required>{{ old('description') }}</textarea>
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-blue-200">{{ old('description') }}</textarea>
+                @error('description')
+                    <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Image Upload -->
@@ -78,6 +84,9 @@
                     <option value="in_progress">In Progress</option>
                     <option value="completed">Completed</option>
                 </select>
+                @error('status')
+                    <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Priority -->
@@ -89,6 +98,9 @@
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                 </select>
+                @error('priority')
+                    <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Assigned To -->
@@ -96,10 +108,14 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Assign To (User ID)</label>
                 <select name="assigned_to" class="w-full border border-gray-300 rounded-lg px-4 py-2">
                     @foreach ($users as $user)
+                        <option value="">Select User</option>
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
 
                 </select>
+                @error('assigned_to')
+                    <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Assigned Date -->
@@ -107,6 +123,9 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Assigned Date</label>
                 <input type="date" name="assigned_date" id="assigned_date" value="{{ old('assigned_date') }}"
                     class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                @error('assigned_date')
+                    <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Completed Date -->
@@ -114,6 +133,9 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Completed Date</label>
                 <input type="date" name="completed_date" id="completed_date" value="{{ old('completed_date') }}"
                     class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                @error('completed_date')
+                    <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Submit Button -->

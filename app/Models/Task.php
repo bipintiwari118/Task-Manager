@@ -31,4 +31,15 @@ class Task extends Model
             ]
         ];
     }
+
+    public function creator()
+{
+    return $this->belongsTo(User::class, 'created_by');
+}
+
+// The user who is assigned to do this task
+public function assigne()
+{
+    return $this->belongsTo(User::class, 'assigned_to');
+}
 }

@@ -37,6 +37,13 @@ Route::middleware('auth')->group(function () {
     //for task
     Route::get('/task/add', [TaskController::class, 'create'])->name('task.add');
     Route::post('/task/add', [TaskController::class, 'store'])->name('task.store');
+    Route::get('/task/list', [TaskController::class, 'list'])->name('task.list');
+    Route::get('/task/edit/{slug}', [TaskController::class, 'edit'])->name('task.edit');
+    Route::get('/task/delete/{slug}', [TaskController::class, 'delete'])->name('task.delete');
+    Route::get('/task/view/{slug}', [TaskController::class, 'view'])->name('task.view');
+
+    Route::post('/tasks/reorder', [TaskController::class, 'reorder'])->name('task.reorder');
+
 
 
 });

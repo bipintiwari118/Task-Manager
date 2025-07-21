@@ -17,13 +17,12 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'status' => 'nullable|string',
+            'status' => 'nullable|string|in:to_do,in_progress,completed',
             'priority' => 'nullable|string|in:low,medium,high',
             'assigned_to' => 'nullable|exists:users,id',
             'assigned_date' => 'nullable|date',
@@ -50,7 +49,25 @@ class TaskController extends Controller
             'completed_date' => $validated['completed_date'] ?? null,
         ]);
 
-        return redirect()->route('task.add')->with('success', 'Task created successfully!');
+        return redirect()->route('task.list')->with('success', 'Task created successfully!');
     }
+
+    public function list(){
+        $tasks = Task::with('creator', 'assigne')
+                ->orderByRaw("FIELD(priority, 'high', 'medium', 'low')")
+                ->orderBy('position')
+                ->paginate(10);
+        return view('admin.task.list',compact('tasks'));
+    }
+
+
+    public function reorder(Request $request)
+        {
+            foreach ($request->order as $item) {
+                Task::where('id', $item['id'])->update(['position' => $item['position']]);
+            }
+
+            return response()->json(['status' => 'success']);
+        }
 
 }
