@@ -41,7 +41,7 @@
                         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                         Apply Filter
                     </button>
-                    @if (request('keyword'))
+                    @if (request('title') || request('assigned_date') || request('status'))
                         <a href="{{ route('task.list') }}"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Clear
