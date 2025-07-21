@@ -32,7 +32,7 @@
                         class="border w-[200px] border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="">Select Status</option>
                         <option value="to_do">To Do</option>
-                        <option value="to_progress">To Progress</option>
+                        <option value="in_progress">In Progress</option>
                         <option value="completed">Completed</option>
                     </select>
                     <button type="submit"
@@ -40,7 +40,7 @@
                         Apply Filter
                     </button>
                     @if (request('keyword'))
-                        <a href="{{ route('booking.list') }}"
+                        <a href="{{ route('task.list') }}"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Clear
                         </a>
