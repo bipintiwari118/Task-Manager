@@ -72,7 +72,7 @@ class TaskController extends Controller
         $tasks = $tasks->with('creator', 'assigne')
                 ->orderByRaw("FIELD(priority, 'high', 'medium', 'low')")
                 ->orderBy('position')
-                ->paginate(10);
+                ->paginate(3);
         return view('admin.task.list',compact('tasks'));
     }
 
@@ -85,5 +85,50 @@ class TaskController extends Controller
 
             return response()->json(['status' => 'success']);
         }
+
+
+    public function edit($slug){
+        $task=Task::where('slug',$slug)->first();
+        $users=User::all();
+
+        return view('admin.task.edit',compact('task','users'));
+    }
+
+
+    public function update(Request $request , $slug)
+    {
+        $validated = $request->validate([
+                    'title' => 'required|string|max:255',
+                    'description' => 'nullable|string',
+                    'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'status' => 'nullable|string|in:to_do,in_progress,completed',
+                    'priority' => 'nullable|string|in:low,medium,high',
+                    'assigned_to' => 'nullable|exists:users,id',
+                    'assigned_date' => 'nullable|date',
+                    'completed_date' => 'nullable|date|after_or_equal:assigned_date',
+                ]);
+
+
+       $task=Task::where('slug',$slug)->first();
+
+       $task->update([
+
+            'title' => $validated['title'],
+            'description' => $validated['description'] ?? null,
+            // 'image' => json_encode($imagePaths),
+            'status' => $validated['status'] ?? 'pending',
+            'priority' => $validated['priority'] ?? null,
+            'created_by' => Auth::id(),
+            'assigned_to' => $validated['assigned_to'] ?? null,
+            'assigned_date' => $validated['assigned_date'] ?? null,
+            'completed_date' => $validated['completed_date'] ?? null,
+
+       ]);
+
+
+        return redirect()->route('task.list')->with('success', 'Task Updated successfully!');
+
+
+    }
 
 }

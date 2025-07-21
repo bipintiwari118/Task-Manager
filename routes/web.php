@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/task/add', [TaskController::class, 'store'])->name('task.store');
     Route::get('/task/list', [TaskController::class, 'list'])->name('task.list');
     Route::get('/task/edit/{slug}', [TaskController::class, 'edit'])->name('task.edit');
+    Route::post('/task/edit/{slug}', [TaskController::class, 'update'])->name('task.update');
     Route::get('/task/delete/{slug}', [TaskController::class, 'delete'])->name('task.delete');
     Route::get('/task/view/{slug}', [TaskController::class, 'view'])->name('task.view');
 
