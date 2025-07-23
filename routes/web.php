@@ -45,9 +45,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/task/delete/{slug}', [TaskController::class, 'delete'])->name('task.delete');
     Route::get('/task/view/{slug}', [TaskController::class, 'view'])->name('task.view');
 
-    Route::post('/tasks/reorder', [TaskController::class, 'reorder'])->name('task.reorder')->middleware('role:Admin');
+    // Route::post('/tasks/reorder', [TaskController::class, 'reorder'])->name('task.reorder');
 
-    Route::post('/task/update-status', [TaskController::class, 'updateStatus'])->name('task.updateStatus');
+    Route::post('/task/update-status', [TaskController::class, 'updateStatus'])->name('task.updateStatus')->middleware('role:Admin');
 
 
 
