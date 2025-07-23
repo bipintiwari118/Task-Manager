@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image')->nullable(); // Optional image path
 
             // Enum status: To Do, In Progress, Done
-            $table->enum('status', ['to_do', 'in_progress', 'completed'])->default('to_do');
+            $table->foreignId('status_id')->constrained('statuses')->onDelete('cascade');
             $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
 
             // Dates

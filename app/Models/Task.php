@@ -14,7 +14,7 @@ class Task extends Model
         'title',
         'description',
         'image',
-        'status',
+        'status_id',
         'priority',
         'created_by',
         'assigned_to',
@@ -32,14 +32,17 @@ class Task extends Model
         ];
     }
 
-    public function creator()
-{
-    return $this->belongsTo(User::class, 'created_by');
-}
+    public function creator(){
+             return $this->belongsTo(User::class, 'created_by');
+        }
 
 // The user who is assigned to do this task
-public function assigne()
-{
-    return $this->belongsTo(User::class, 'assigned_to');
-}
+    public function assigne(){
+            return $this->belongsTo(User::class, 'assigned_to');
+        }
+
+
+    public function status() {
+            return $this->belongsTo(Status::class);
+        }
 }

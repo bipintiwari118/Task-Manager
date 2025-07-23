@@ -25,7 +25,8 @@
 
             <!-- Title -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Title <span
+                        class="text-red-600">*</span></label>
                 <input type="text" name="title" value="{{ $task->title }}"
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-blue-200">
                 @error('title')
@@ -80,13 +81,14 @@
 
             <!-- Status -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                <select name="status" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Status <span
+                        class="text-red-600">*</span></label>
+                <select name="status_id" class="w-full border border-gray-300 rounded-lg px-4 py-2">
                     <option value="">Select Status</option>
-                    <option value="to_do" {{ $task->status == 'to_do' ? 'selected' : '' }}>To Do</option>
-                    <option value="in_progress" {{ $task->status == 'in_progress' ? 'selected' : '' }}>In Progress
-                    </option>
-                    <option value="completed" {{ $task->status == 'completed' ? 'selected' : '' }}>Completed</option>
+                    @foreach ($statuses as $status)
+                        <option value="{{ $status->id }}" {{ $task->status_id == $status->id ? 'selected' : '' }}>
+                            {{ $status->name }}</option>
+                    @endforeach
                 </select>
                 @error('status')
                     <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
