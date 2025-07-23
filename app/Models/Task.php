@@ -13,7 +13,7 @@ class Task extends Model
      protected $fillable = [
         'title',
         'description',
-        'image',
+        'images',
         'status_id',
         'priority',
         'created_by',
@@ -45,4 +45,8 @@ class Task extends Model
     public function status() {
             return $this->belongsTo(Status::class);
         }
+
+        protected $casts = [
+         'images' => 'array',
+        ];
 }

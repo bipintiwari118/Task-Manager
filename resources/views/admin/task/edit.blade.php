@@ -45,38 +45,26 @@
             </div>
 
             <!-- Image Upload -->
-            <div x-data="{ images: [] }" class="w-full max-w-4xl mx-auto">
+            <div class="w-full max-w-4xl mx-auto">
                 <!-- File Upload Label -->
                 <label class="block text-sm font-medium text-gray-700 mb-2">Upload Images</label>
 
-                <!-- Upload Box -->
-                <div
-                    class="relative border-2 border-dashed border-gray-300 rounded-lg p-6 flex justify-center items-center cursor-pointer hover:border-blue-500 transition">
-                    <input type="file" name="images[]" multiple
-                        class="absolute inset-0 opacity-0 cursor-pointer z-10"
-                        @change="images = Array.from($event.target.files)">
-                    <div class="text-center text-gray-500 z-0">
-                        <svg class="w-10 h-10 mx-auto text-blue-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 16l4-4a4 4 0 015.657 0L21 3M3 21h18" />
-                        </svg>
-                        <p class="mt-2 text-sm">Click or drag to upload images</p>
-                    </div>
+                <input type="file" name="images" id="featured_image" class="w-full">
+                <div class="">
+                    @if ($task->images)
+                        <p class="text-gray-500 mb-[5px]">{{ $task->images }}</p>
+                        <img id="image_preview" src="{{ asset($task->images) }}"
+                            alt="{{ $task->images }}" class="w-[100px] h-[120px] object-cover rounded">
+                    @else
+                        <p class="text-gray-500">No image uploaded.</p>
+                        <img id="image_preview" src="" alt="Image Preview"
+                            class="w-[100px] h-[120px] hidden object-cover rounded">
+                    @endif
                 </div>
 
-                <!-- Preview Section -->
-                <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" x-show="images.length">
-                    <template x-for="(image, index) in images" :key="index">
-                        <div class="relative">
-                            <img :src="URL.createObjectURL(image)" alt="preview"
-                                class="w-full h-32 object-cover rounded-lg shadow hover:scale-105 transition">
-                            <p class="absolute bottom-1 left-1 bg-black/60 text-white text-xs px-1 py-0.5 rounded"
-                                x-text="image.name.split('.')[0].slice(0, 12) + (image.name.length > 12 ? '...' : '')">
-                            </p>
-                        </div>
-                    </template>
-                </div>
+                @error('images')
+                    <div class="text-red-500 text-sm mt-1 ml-3">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Status -->

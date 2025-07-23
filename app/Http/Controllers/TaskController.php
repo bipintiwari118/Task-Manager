@@ -24,7 +24,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status_id' => 'required|exists:statuses,id',
             'priority' => 'nullable|string|in:low,medium,high',
             'assigned_to' => 'nullable|exists:users,id',
@@ -32,18 +32,19 @@ class TaskController extends Controller
             'completed_date' => 'nullable|date|after_or_equal:assigned_date',
         ]);
 
-        $imagePaths = [];
-        if ($request->hasFile('image')) {
-            foreach ($request->file('image') as $image) {
-                $path = $image->store('tasks/images', 'public');
-                $imagePaths[] = $path;
-            }
-        }
+
+         if ($request->hasFile('images')) {
+
+       $featuredImage = $request->file('images');
+        $featuredImageName = time().'.'.$featuredImage->extension();
+        $featuredImage->move(public_path('images/featured_image/'),$featuredImageName);
+        $featuredImagePath = 'images/featured_image/' . $featuredImageName;
+         }
 
         $task = Task::create([
             'title' => $validated['title'],
             'description' => $validated['description'] ?? null,
-            // 'image' => json_encode($imagePaths),
+            'images' => $featuredImagePath,
             'status_id' => $validated['status_id'],
             'priority' => $validated['priority'] ?? null,
             'created_by' => Auth::id(),
@@ -56,29 +57,6 @@ class TaskController extends Controller
     }
 
     public function list(Request $request){
-
-        // $statuses=Status::all();
-
-        //  $tasks = Task::query();
-        //                 if ($request->filled('title')) {
-        //                     $tasks->where('title', 'like', '%' . $request->title . '%');
-        //                 }
-
-        //                 if ($request->filled('date')) {
-        //                     $tasks->where('assigned_date', $request->date)
-        //                          ->orWhere('completed_date',$request->date);
-        //                 }
-
-        //                 if ($request->filled('status')) {
-        //                     $tasks->where('status_id', $request->status);
-        //                 }
-
-
-        // $tasks = $tasks->with('creator', 'assigne','status')
-        //         ->orderByRaw("FIELD(priority, 'high', 'medium', 'low')")
-        //         ->orderBy('position')
-        //         ->paginate(10);
-        // return view('admin.task.list',compact('tasks','statuses'));
 
            $statuses = Status::with(['tasks' => function ($query) use ($request) {
         // Apply filters
@@ -133,13 +111,25 @@ class TaskController extends Controller
                 ]);
 
 
+
+
        $task=Task::where('slug',$slug)->first();
+
+         if ($request->hasFile('images')) {
+
+       $featuredImage = $request->file('images');
+        $featuredImageName = time().'.'.$featuredImage->extension();
+        $featuredImage->move(public_path('images/featured_image/'),$featuredImageName);
+        $featuredImagePath = 'images/featured_image/' . $featuredImageName;
+         }else{
+            $featuredImagePath = $task->images;
+         }
 
        $task->update([
 
             'title' => $validated['title'],
             'description' => $validated['description'] ?? null,
-            // 'image' => json_encode($imagePaths),
+            'images' => $featuredImagePath,
             'status_id' => $validated['status_id'],
             'priority' => $validated['priority'] ?? null,
             'created_by' => Auth::id(),

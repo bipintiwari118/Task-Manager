@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('position')->nullable();
             $table->string('title');
             $table->longText('description')->nullable();
-            $table->string('image')->nullable(); // Optional image path
+            $table->json('images')->nullable(); // Optional image path
 
             // Enum status: To Do, In Progress, Done
             $table->foreignId('status_id')->constrained('statuses')->onDelete('cascade');

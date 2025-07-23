@@ -6,8 +6,8 @@
     <div class="max-w-4xl mx-auto p-6">
         <div class="bg-white shadow-lg rounded-2xl p-6 md:p-8">
             <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
-                @if ($task->image)
-                    <img src="{{ asset('storage/' . $task->image) }}" alt="{{ $task->title }}"
+                @if ($task->images)
+                    <img src="{{ asset($task->images) }}" alt="{{ $task->title }}"
                         class="w-full md:w-60 rounded-xl shadow-md object-cover h-48">
                 @else
                     <div
@@ -27,8 +27,8 @@
                     <strong>Status:</strong>
                     <span
                         class="inline-block ml-2 px-2 py-1 rounded-full
-                    {{ $task->status === 'completed' ? 'bg-green-100 text-green-700' : ($task->status === 'in_progress' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700') }}">
-                        {{ ucfirst($task->status) }}
+                    {{ $task->status->name === 'Completed' ? 'bg-green-100 text-green-700' : ($task->status->name === 'In Progress' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700') }}">
+                        {{ $task->status->name }}
                     </span>
                 </div>
 
@@ -42,9 +42,10 @@
                     <span class="ml-2 text-gray-800">{{ $task->creator->name }}</span>
                 </div>
 
+
                 <div>
                     <strong>Assigned To:</strong>
-                    <span class="ml-2 text-gray-800">{{ $task->assigne->name }}</span>
+                    <span class="ml-2 text-gray-800">{{ $task->assigne->name ?? null }}</span>
                 </div>
 
                 <div>
