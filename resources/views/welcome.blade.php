@@ -48,6 +48,9 @@
                 <a href="#features" class="text-gray-700 hover:text-blue-600 font-medium">Features</a>
                 <a href="#about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
                 <a href="#contact" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600 font-medium">Login</a>
+                <a href="{{ route('register') }}" class="text-gray-700 hover:text-blue-600 font-medium">Register</a>
+
             </nav>
             <div class="md:hidden">
                 <button id="menu-btn" class="focus:outline-none">
