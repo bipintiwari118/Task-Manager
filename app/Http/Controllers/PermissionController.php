@@ -44,7 +44,7 @@ class PermissionController extends Controller
 
     public function update(Request $request,$id){
         $validator=Validator::make($request->all(),[
-            'name'=>'required|unique:permissions,name'.$id->id,
+            'name'=>'required|unique:permissions,name,' .$id,
         ]);
 
         if ($validator->fails()) {
