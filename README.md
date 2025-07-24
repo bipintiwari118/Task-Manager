@@ -27,7 +27,7 @@ A simple, Trello-like Task Manager built with Laravel. Users can register, log i
 -   **jQuery** – JavaScript library for DOM manipulation and event handling
 -   **Sortable.js** – JavaScript library enabling drag-and-drop sorting
 
-📖 Explanation
+## 📖 Explanation
 This Task Manager application is designed to provide a simple and intuitive way to create, assign, and manage tasks within a team.
 
 👥 User Roles
