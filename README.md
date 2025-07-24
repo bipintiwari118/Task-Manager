@@ -30,7 +30,7 @@ A simple, Trello-like Task Manager built with Laravel. Users can register, log i
 ## 📖 Explanation
 This Task Manager application is designed to provide a simple and intuitive way to create, assign, and manage tasks within a team.
 
-👥 User Roles
+# 👥 User Roles
 There are two types of users:
 
 🛡️ Admin – Can create tasks and assign them to other users.
