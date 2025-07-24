@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
 
     // Route::post('/tasks/reorder', [TaskController::class, 'reorder'])->name('task.reorder');
 
-    Route::post('/task/update-status', [TaskController::class, 'updateStatus'])->name('task.updateStatus')->middleware('role:Admin');
+    Route::post('/task/update-status', [TaskController::class, 'updateStatus'])->name('task.updateStatus');
 
 
 
