@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        {{ __('Edit Permission') }}
+        {{ __('Update Permission') }}
     </x-slot>
 
     <div class="">
@@ -10,7 +10,7 @@
             <a href="{{ route('permission.list') }}"
                 class="bg-green-600 text-white px-[35px] py-[8px] rounded-md  mb-[30px] float-left ml-[60px] hover:bg-green-800">List</a>
             <button
-                class="bg-blue-600 text-white px-[20px] py-[8px] rounded-md  mb-[30px] float-right mr-[50px] hover:bg-blue-800">Edit Permission</button>
+                class="bg-blue-600 text-white px-[20px] py-[8px] rounded-md  mb-[30px] float-right mr-[50px] hover:bg-blue-800">Update Permission</button>
             <div class="h-auto w-full">
                 @if (Session::has('success'))
                     <div class="text-green-500 text-[20px] mt-1  ml-[200px] p-[10px]" role="alert">

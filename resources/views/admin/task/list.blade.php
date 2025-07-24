@@ -66,8 +66,11 @@
                                         class="text-green-500 font-semibold">{{ $task->assigned_date ?? 'N/A' }}</span><br>
                                 </p>
                                 <p class="mt-2 text-sm text-gray-500">
-                                    Assigned: <span
-                                        class="text-green-500 font-semibold">{{ $task->assigne->name ?? 'N/A' }}</span>
+                                    Assigned: <span class="text-green-500 font-semibold">
+                                        @foreach ($task->assignedUsers as $user)
+                                            <li>{{ $user->name }}</li>
+                                        @endforeach
+                                    </span>
                                 </p>
                                 <p class="mt-2 text-sm text-gray-500">
                                     Completed Date: <span
@@ -163,7 +166,7 @@
                                 },
                                 error: function(xhr) {
                                     alert(
-                                        'Failed to update task status. Please try again.'
+                                        'You do not have permission to change the status of this task.'
                                     );
                                     // Optionally revert the drag or reload page
                                     location.reload();

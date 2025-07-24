@@ -45,7 +45,11 @@
 
                 <div>
                     <strong>Assigned To:</strong>
-                    <span class="ml-2 text-gray-800">{{ $task->assigne->name ?? null }}</span>
+                    <span class="ml-2 text-gray-800">
+                        @foreach ($task->assignedUsers as $user)
+                            <li>{{ $user->name }}</li>
+                        @endforeach
+                    </span>
                 </div>
 
                 <div>

@@ -53,8 +53,8 @@
                 <div class="">
                     @if ($task->images)
                         <p class="text-gray-500 mb-[5px]">{{ $task->images }}</p>
-                        <img id="image_preview" src="{{ asset($task->images) }}"
-                            alt="{{ $task->images }}" class="w-[100px] h-[120px] object-cover rounded">
+                        <img id="image_preview" src="{{ asset($task->images) }}" alt="{{ $task->images }}"
+                            class="w-[100px] h-[120px] object-cover rounded">
                     @else
                         <p class="text-gray-500">No image uploaded.</p>
                         <img id="image_preview" src="" alt="Image Preview"
@@ -101,10 +101,9 @@
             @hasrole('Admin')
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Assign To (User ID)</label>
-                    <select name="assigned_to" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                    <select name="assigned_to[]" multiple class="w-full  border border-gray-300 rounded-lg px-4 py-2">
                         @foreach ($users as $user)
-                            <option value="">Select User</option>
-                            <option value="{{ $user->id }}" {{ $task->assigned_to == $user->id ? 'selected' : '' }}>
+                            <option value="{{ $user->id }}" @if (isset($assignedUsers) && in_array($user->id, $assignedUsers)) selected @endif>
                                 {{ $user->name }}</option>
                         @endforeach
 
@@ -147,6 +146,24 @@
 
     @section('scripts')
         <script>
+            const imageInput = document.getElementById('featured_image');
+            const imagePreview = document.getElementById('image_preview');
+
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.classList.remove('hidden');
+                    }
+
+                    reader.readAsDataURL(file);
+                }
+            });
+
             $(document).ready(function() {
                 $('#assigned_date').click(function() {
                     $(this)[0].showPicker(); // Trigger the calendar when input is clicked

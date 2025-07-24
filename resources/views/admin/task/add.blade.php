@@ -13,7 +13,9 @@
 
             @csrf
 
-            <div class="text-right">
+            <div class="flex justify-between">
+                <a href="{{ route('task.list') }}"
+                    class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition">Back</a>
                 <button type="submit"
                     class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition">Create
                     Task</button>
@@ -88,8 +90,7 @@
             @hasrole('Admin')
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Assign To (User ID)</label>
-                    <select name="assigned_to" class="w-full border border-gray-300 rounded-lg px-4 py-2">
-                        <option value="">Select User</option>
+                    <select name="assigned_to[]" multiple class="w-full border border-gray-300 rounded-lg px-4 py-2">
                         @foreach ($users as $user)
                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                         @endforeach

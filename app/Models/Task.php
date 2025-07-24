@@ -17,7 +17,6 @@ class Task extends Model
         'status_id',
         'priority',
         'created_by',
-        'assigned_to',
         'assigned_date',
         'completed_date',
     ];
@@ -36,10 +35,11 @@ class Task extends Model
              return $this->belongsTo(User::class, 'created_by');
         }
 
-// The user who is assigned to do this task
-    public function assigne(){
-            return $this->belongsTo(User::class, 'assigned_to');
-        }
+// Assigned users (many-to-many)
+    public function assignedUsers()
+    {
+        return $this->belongsToMany(User::class, 'task_user', 'task_id', 'user_id')->withTimestamps();
+    }
 
 
     public function status() {

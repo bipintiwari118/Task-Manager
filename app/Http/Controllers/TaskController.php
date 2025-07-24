@@ -27,31 +27,41 @@ class TaskController extends Controller
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status_id' => 'required|exists:statuses,id',
             'priority' => 'nullable|string|in:low,medium,high',
-            'assigned_to' => 'nullable|exists:users,id',
+            'assigned_to' => 'nullable|array',
+            'assigned_to.*' => 'exists:users,id',
             'assigned_date' => 'nullable|date',
             'completed_date' => 'nullable|date|after_or_equal:assigned_date',
         ]);
 
 
-         if ($request->hasFile('images')) {
-
-       $featuredImage = $request->file('images');
-        $featuredImageName = time().'.'.$featuredImage->extension();
-        $featuredImage->move(public_path('images/featured_image/'),$featuredImageName);
-        $featuredImagePath = 'images/featured_image/' . $featuredImageName;
-         }
 
         $task = Task::create([
             'title' => $validated['title'],
             'description' => $validated['description'] ?? null,
-            'images' => $featuredImagePath,
             'status_id' => $validated['status_id'],
             'priority' => $validated['priority'] ?? null,
             'created_by' => Auth::id(),
-            'assigned_to' => $validated['assigned_to'] ?? null,
             'assigned_date' => $validated['assigned_date'] ?? null,
             'completed_date' => $validated['completed_date'] ?? null,
         ]);
+
+
+         if ($request->hasFile('images')) {
+
+        $featuredImage = $request->file('images');
+        $featuredImageName = time().'.'.$featuredImage->extension();
+        $featuredImage->move(public_path('images/featured_image/'),$featuredImageName);
+        $featuredImagePath = 'images/featured_image/' . $featuredImageName;
+
+        $task->images=$featuredImagePath;
+
+
+         }
+
+         // Attach assigned users
+
+         if($request->assigned_to){
+        $task->assignedUsers()->attach($validated['assigned_to']);}
 
         return redirect()->route('task.list')->with('success', 'Task created successfully!');
     }
@@ -92,8 +102,9 @@ class TaskController extends Controller
         $task=Task::where('slug',$slug)->first();
         $statuses=Status::all();
         $users=User::all();
+        $assignedUsers = $task->assignedUsers->pluck('id')->toArray();
 
-        return view('admin.task.edit',compact('task','users','statuses'));
+        return view('admin.task.edit',compact('task','users','statuses','assignedUsers'));
     }
 
 
@@ -105,7 +116,8 @@ class TaskController extends Controller
                     'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                     'status_id' => 'required|exists:statuses,id',
                     'priority' => 'nullable|string|in:low,medium,high',
-                    'assigned_to' => 'nullable|exists:users,id',
+                    'assigned_to' => 'nullable|array',
+                    'assigned_to.*' => 'exists:users,id',
                     'assigned_date' => 'nullable|date',
                     'completed_date' => 'nullable|date|after_or_equal:assigned_date',
                 ]);
@@ -129,15 +141,19 @@ class TaskController extends Controller
 
             'title' => $validated['title'],
             'description' => $validated['description'] ?? null,
-            'images' => $featuredImagePath,
+            'images' => $featuredImagePath ?? null,
             'status_id' => $validated['status_id'],
             'priority' => $validated['priority'] ?? null,
             'created_by' => Auth::id(),
-            'assigned_to' => $validated['assigned_to'] ?? null,
             'assigned_date' => $validated['assigned_date'] ?? null,
             'completed_date' => $validated['completed_date'] ?? null,
 
        ]);
+
+       if($request->assigned_to){
+         $task->assignedUsers()->sync($validated['assigned_to']);
+       }
+
 
 
         return redirect()->route('task.list')->with('success', 'Task Updated successfully!');
@@ -159,16 +175,6 @@ class TaskController extends Controller
     }
 
 
-       public function reorder(Request $request)
-
-
-        {
-            $order = $request->input('order');
-                foreach ($order as $item) {
-                     Task::where('id', $item['id'])->update(['position' => $item['position']]);
-                    }
-            return response()->json(['status' => 'success']);
-        }
 
 
         public function updateStatus(Request $request)

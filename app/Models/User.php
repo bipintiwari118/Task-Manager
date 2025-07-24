@@ -35,6 +35,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    // Tasks assigned to this user
+    public function assignedTasks()
+    {
+        return $this->belongsToMany(Task::class, 'task_user', 'user_id', 'task_id')->withTimestamps();
+    }
+
     /**
      * The attributes that should be cast.
      *
