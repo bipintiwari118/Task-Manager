@@ -26,3 +26,72 @@ A simple, Trello-like Task Manager built with Laravel. Users can register, log i
 -   **Laravel** – PHP framework for backend development
 -   **jQuery** – JavaScript library for DOM manipulation and event handling
 -   **Sortable.js** – JavaScript library enabling drag-and-drop sorting
+
+📖 Explanation
+This Task Manager application is designed to provide a simple and intuitive way to create, assign, and manage tasks within a team.
+
+👥 User Roles
+There are two types of users:
+
+🛡️ Admin – Can create tasks and assign them to other users.
+
+👤 Normal User – Can only create their own tasks, cannot assign them.
+
+🎯 User roles are managed using the Spatie Laravel Permission package.
+
+🔐 Authentication & Authorization
+✨ Powered by Laravel Breeze for user registration and login.
+
+🔒 Role-based access control ensures:
+
+✅ Only Admins can access task assignment features.
+
+🧑‍💼 Regular users can create tasks but not assign them.
+
+📝 Task Management
+🆕 Any authenticated user can create a new task with:
+
+Title
+
+Description
+
+Priority (High, Medium, Low)
+
+🧑‍🏫 Admins can select a user from a dropdown and assign tasks.
+
+📂 Tasks are displayed in status-based columns:
+
+To Do
+
+In Progress
+
+Completed
+
+📦 Drag & Drop Interface
+💡 Powered by Sortable.js.
+
+🖱️ Users can drag and drop task cards between columns.
+
+🧩 Enables quick updates to task status or priority visually.
+
+📊 Priority Sorting
+Tasks can be sorted by:
+
+🔺 High
+
+🟡 Medium
+
+🔻 Low
+
+📌 This helps users focus on what’s important and urgent.
+
+🌐 UI & UX
+💅 Built with Tailwind CSS for a clean, responsive interface.
+
+🧱 Dashboard design based on Laracasts Windmill Theme.
+
+✨ Uses jQuery for small interactions like:
+
+Menu toggling
+
+Live task updates
