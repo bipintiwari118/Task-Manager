@@ -40,7 +40,7 @@ There are two types of users:
 🎯 User roles are managed using the Spatie Laravel Permission package.
 
 🔐 Authentication & Authorization
-✨ Powered by Laravel Breeze for user registration and login.
+✨ Powered by Laravel Breeze (windmill/laracast) for user registration and login.
 
 🔒 Role-based access control ensures:
 
@@ -48,7 +48,7 @@ There are two types of users:
 
 🧑‍💼 Regular users can create tasks but not assign them.
 
-📝 Task Management
+### 📝 Task Management
 🆕 Any authenticated user can create a new task with:
 
 Title
@@ -85,7 +85,7 @@ Tasks can be sorted by:
 
 📌 This helps users focus on what’s important and urgent.
 
-🌐 UI & UX
+### 🌐 UI & UX
 💅 Built with Tailwind CSS for a clean, responsive interface.
 
 🧱 Dashboard design based on Laracasts Windmill Theme.
@@ -94,4 +94,4 @@ Tasks can be sorted by:
 
 Menu toggling
 
-Live task updates
+
