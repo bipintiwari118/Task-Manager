@@ -78,7 +78,6 @@
 
     @section('scripts')
         <script>
-            console.log('hello');
             function togglePassword() {
                 const passwordInput = document.getElementById("password");
                 const eyeOpen = document.getElementById("eyeOpen");
