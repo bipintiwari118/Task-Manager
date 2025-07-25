@@ -33,8 +33,6 @@ class TaskController extends Controller
             'completed_date' => 'nullable|date|after_or_equal:assigned_date',
         ]);
 
-
-
         $task = Task::create([
             'title' => $validated['title'],
             'description' => $validated['description'] ?? null,

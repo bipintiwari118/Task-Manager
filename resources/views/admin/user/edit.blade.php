@@ -50,7 +50,7 @@
 
                     <div class="mt-4 relative">
                         <x-input-label for="password" :value="__('Password')" />
-                        <x-text-input id="password" type="password" name="password" class="block w-full pr-10"/>
+                        <x-text-input id="password" type="password" name="password" class="block w-full pr-10" />
                         <span onclick="togglePassword('password')"
                             class="absolute inset-y-0 right-0 pr-3 mt-4 flex items-center cursor-pointer">
                             <svg id="eyeClosed-password" xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@
                     <div class="mt-4 relative">
                         <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
                         <x-text-input id="password_confirmation" type="password" name="password_confirmation"
-                            class="block w-full pr-10"/>
+                            class="block w-full pr-10" />
                         <span onclick="togglePassword('password_confirmation')"
                             class="absolute inset-y-0 right-0 pr-3 flex mt-4 items-center cursor-pointer">
                             <svg id="eyeClosed-password_confirmation" xmlns="http://www.w3.org/2000/svg"
@@ -96,8 +96,8 @@
 
                     <div class="mt-4">
                         <x-input-label for="roles" :value="__('Assign Roles')" />
-                        <select name="roles[]" id="roles"
-                            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                        <select name="roles[]"
+                            class="js-example-basic-multiple block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                             multiple>
                             @foreach ($roles as $role)
                                 <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
@@ -132,6 +132,12 @@
                     eyeClosed.classList.toggle("hidden", isHidden);
                     eyeOpen.classList.toggle("hidden", !isHidden);
                 }
+
+
+                // console.log('hello');
+                $(document).ready(function() {
+                    $('.js-example-basic-multiple').select2();
+                });
             </script>
         @endsection
 

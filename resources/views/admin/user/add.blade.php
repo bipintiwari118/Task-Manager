@@ -51,9 +51,10 @@
                     <!-- Roles Section -->
                     <div class="mt-4">
                         <x-input-label for="roles" :value="__('Assign Roles')" />
-                        <select name="roles[]" id="roles"
-                            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                            multiple>
+                        {{-- <x-text-input type="text" class="block w-full" mbsc-input id="my-input" data-dropdown="true"
+                            data-tags="true" /> --}}
+                        <select name="roles[]"  class="js-example-basic-multiple block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                            multiple="multiple">
                             @foreach ($roles as $role)
                                 <option value="{{ $role->name }}">{{ $role->name }}</option>
                             @endforeach
@@ -72,4 +73,12 @@
 
             </div>
         </div>
+        @section('scripts')
+            <script>
+                // console.log('hello');
+                $(document).ready(function() {
+                    $('.js-example-basic-multiple').select2();
+                });
+            </script>
+        @endsection
 </x-app-layout>
